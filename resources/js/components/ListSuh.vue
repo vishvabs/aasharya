@@ -7,7 +7,7 @@
         
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Borrower List</h3>
+                <h3 class="card-title">SUH List</h3>
 
                 <div class="card-tools">
                   
@@ -18,7 +18,7 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
+              <div class="card-body table-responsive p-20">
                 <table id="suhTable" class="table table-hover">
                   <thead>
                     <tr>
@@ -51,7 +51,7 @@
                       <!-- <td><img v-bind:src="'/' + product.photo" width="100" alt="product"></td> -->
                       <td>
                         
-                        <a href="#" >
+                        <a href="#"  @click="editModal(suh)">
                             <i class="fa fa-edit blue"></i>
                         </a>
                         /
@@ -64,9 +64,7 @@
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer">
-                  <!-- <pagination :data="borrowers" @pagination-change-page="getResults"></pagination> -->
-              </div>
+          
             </div>
             <!-- /.card -->
           </div>
@@ -76,6 +74,8 @@
 </template>
 
 <script>
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
     export default {
 
         data () {
@@ -89,22 +89,34 @@
             loadSuh(){
 
             // if(this.$gate.isAdmin()){
-              axios.get("api/suh").then(({ data }) => (this.suhs = data.data));
+              axios.get("api/suh").then(({ data }) => {
+                
+                this.suhs = data.data;
+
+              });
             // }
+          },
+           editModal(suh){
+           this.$router.push({name:'editme', params: {id: suh.id}}); 
           },
              
          },
         mounted() {
             console.log('Component mounted.')
-            $(function() {
-    $('#suhTable').DataTable();
-} );
+          console.log(this.$userId)
+          
+
         },
 
         created() {
             this.$Progress.start();
             this.loadSuh();
+            
             this.$Progress.finish();
+        },
+
+        updated(){
+          $('#suhTable').DataTable();
         },
 
         filters: {

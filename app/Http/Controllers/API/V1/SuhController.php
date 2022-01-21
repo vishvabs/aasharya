@@ -5,6 +5,7 @@ use App\Http\Requests\SuhRequest;
 use Illuminate\Http\Request;
 use App\Models\Suh;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SuhController extends BaseController
 {
@@ -64,8 +65,21 @@ class SuhController extends BaseController
      */
     public function store(SuhRequest $request)
     {
+
+        $user = DB::table('users')->insert(
+            array('user_id' => $request->get('username'),
+                  'is_admin' => 0,
+                  'status' => $request->get('status'),
+                  'createdby_id' => $request->get('created_id'),
+                  'password' => Hash::make($request->get('password')),
+                  'created_at' => now(),
+                  'updated_at' => now(),)
+        );
+
+        $lastid = DB::table('users')->get()->last()->id;
+
         $suh = $this->suh->create([
-            'user_id' => $request->get('user_id'),
+            'user_id' => $lastid,
             'district_id' => $request->get('district_id'),
             'ulb_id' => $request->get('ulb_id'),
             'genid' => $request->get('genid'),
@@ -91,6 +105,8 @@ class SuhController extends BaseController
             'sma_date' => $request->get('sma_date'),
         ]);
 
+        
+
         return $this->sendResponse($suh, 'SUH Created Successfully');
     }
 
@@ -102,7 +118,9 @@ class SuhController extends BaseController
      */
     public function show($id)
     {
-        //
+        $suh = $this->suh->with(['user', 'ulb','district'])->findOrFail($id);
+
+        return $this->sendResponse($suh, 'Suh Details');
     }
 
     /**

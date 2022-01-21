@@ -14,6 +14,7 @@ Vue.prototype.$gate = new Gate(window.user);
 import Swal from 'sweetalert2';
 
 
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -38,7 +39,7 @@ Vue.use(VueProgressBar, {
   Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
-
+Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 /**
  * Routes imports and assigning
  */

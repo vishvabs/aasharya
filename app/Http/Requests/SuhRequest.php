@@ -37,7 +37,7 @@ class SuhRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
+            
             'name' => 'required|string|max:191',
             'district_id' => 'required|integer|exists:districts,id',
             'genid' => 'required',
@@ -54,7 +54,7 @@ class SuhRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
+           
             'name' => 'required|string|max:191',
             'district_id' => 'required|integer|exists:districts,id',
             'genid' => 'required',

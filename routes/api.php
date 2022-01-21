@@ -20,14 +20,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('district/list', 'DistrictController@list');
     Route::get('ulb/list', 'UlbController@list');
     Route::get('suh/lastId', 'SuhController@lastId');
     Route::post('suh/upload', 'SuhController@destroy');
+   
+    
 
     Route::apiResources([
         'suh' => 'SuhController',
+        
     ]);
 });

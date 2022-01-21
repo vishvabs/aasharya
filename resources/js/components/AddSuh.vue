@@ -105,7 +105,7 @@
                             <div class="form-group form-check">
                                 
                                 <input type="checkbox" v-model="form.status" class="form-check-input" id="status" name="status" checked>
-                              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                              <label class="form-check-label" for="exampleCheck1">Check me out{{editid}}</label>
                                             </div>
                                 </div>
                             
@@ -125,8 +125,10 @@
 
 <script>
     export default {
+        props:["id"],
           data () {
             return {
+                editid: this.$route.params.id,
                 suhs : {},
                   form: new Form({
                     id : '',
@@ -138,14 +140,16 @@
                     username: '',
                     password: '',
                     status: '',
-                    created_id: '1',
+                    created_id: this.$userId,
                     suh_status: '',
-                    user_id: '1',
+                    user_id: '',
                 }),
                 ulbs:[],
                 districts:[],
+                editSuh:'',
                 autocompleteItems: [],
                 lastId:'',
+                ggh:'',
                 }
         },
 
@@ -194,15 +198,33 @@
              }
           },
 
+          loadEditSuh(id){
+
+             if(this.$gate.isAdmin()){
+              axios.get("api/suh/"+ id).then(({ data }) => {
+                  this.editSuh = data.data
+               this.form.genid = this.editSuh.genid;
+                this.form.district_id = this.editSuh.district_id;
+              });
+             }
+          },
+
           getLastId(){
 
              if(this.$gate.isAdmin()){
-              axios.get("api/suh/lastId").then(({ data }) => (this.lastId = data.data));
+              axios.get("api/suh/lastId").then(({ data }) => (
+                  this.lastId = data.data
+               
+              ));
              }
           },
 
             createSuh(){
               this.$Progress.start();
+
+               
+
+
 
               this.form.post('api/suh')
               .then((data)=>{
@@ -237,15 +259,23 @@
          },
         mounted() {
             console.log('Component mounted.')
+           
+         
         },
 
         created() {
-            this.$Progress.start();
-            this.loadDistricts();
-            this.loadUlbs();
-            this.getLastId();
-            this.form.username = this.makeid(6);
             
+             console.log(this.editid);
+             this.$Progress.start();
+            if(this.editid > 0 || this.editid !== undefined) {
+                this.loadDistricts();
+            this.loadUlbs();
+            this.loadEditSuh(this.editid);
+           
+            } else {
+             this.getLastId();
+            this.form.username = this.makeid(6);
+            }
             this.$Progress.finish();
         },
 
