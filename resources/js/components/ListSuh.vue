@@ -11,7 +11,7 @@
 
                 <div class="card-tools">
                   
-                  <button type="button" class="btn btn-sm btn-primary" >
+                  <button type="button" @click="addNew()" class="btn btn-sm btn-primary" >
                       <i class="fa fa-plus-square"></i>
                       Add New
                   </button>
@@ -55,7 +55,7 @@
                             <i class="fa fa-edit blue"></i>
                         </a>
                         /
-                        <a href="#" >
+                        <a href="#" @click="deleteSuh(suh.id)" >
                             <i class="fa fa-trash red"></i>
                         </a>
                       </td>
@@ -81,6 +81,9 @@ import "datatables.net-dt/css/jquery.dataTables.min.css"
         data () {
             return {
                 suhs : {},
+                form: new Form({
+
+                }),
                 }
         },
 
@@ -96,8 +99,40 @@ import "datatables.net-dt/css/jquery.dataTables.min.css"
               });
             // }
           },
+
+             deleteSuh(id){
+              Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  showCancelButton: true,
+                  confirmButtonColor: '#d33',
+                  cancelButtonColor: '#3085d6',
+                  confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+
+                      // Send request to the server
+                        if (result.value) {
+                              this.form.delete('api/suh/'+id).then(()=>{
+                                      Swal.fire(
+                                      'Deleted!',
+                                      'Suh record has been deleted.',
+                                      'success'
+                                      );
+                                  // Fire.$emit('AfterCreate');
+                                  this.loadSuh();
+                              }).catch((data)=> {
+                                  Swal.fire("Failed!", data.message, "warning");
+                              });
+                        }
+                  })
+          },
+
            editModal(suh){
            this.$router.push({name:'editme', params: {id: suh.id}}); 
+          },
+
+          addNew(){
+            this.$router.push({path:'/AddSuh'}); 
           },
              
          },

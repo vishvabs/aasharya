@@ -141,9 +141,18 @@ class SuhController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SuhRequest $request, $id)
     {
-        //
+        $suh = $this->suh->findOrFail($id);
+
+        $suh->update($request->all());
+
+        DB::table('users')->where('id', $request->get('user_id'))->update(
+            array('user_id' => $request->get('username'),
+                  'status' => $request->get('status'),
+                  'password' => Hash::make($request->get('password')),
+                  'updated_at' => now(),));  
+        return $this->sendResponse($suh, 'Suh Information has been updated');
     }
 
     /**
@@ -154,6 +163,13 @@ class SuhController extends BaseController
      */
     public function destroy($id)
     {
-        //
+
+        $suh = $this->suh->findOrFail($id);
+        
+        $user =  DB::table('users')->where('id', $suh->user_id);
+        $user->delete();
+        $suh->delete();
+        
+        return $this->sendResponse($suh, 'Suh has been Deleted');
     }
 }
