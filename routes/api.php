@@ -24,12 +24,17 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('district/list', 'DistrictController@list');
     Route::get('ulb/list', 'UlbController@list');
     Route::get('suh/lastId', 'SuhController@lastId');
+    Route::get('suh/list', 'SuhController@list');
+    Route::get('inmate/lastId', 'InmateController@lastId');
     Route::post('suh/upload', 'SuhController@destroy');
+    Route::get('suh/{dis}/{ulb}', 'Suhcontroller@filterSuh');
+    Route::get('getinmate/{id}', 'Inmatecontroller@filterbySuh');
    
     
 
     Route::apiResources([
         'suh' => 'SuhController',
+        'inmate' => 'InmateController',
         
     ]);
 });

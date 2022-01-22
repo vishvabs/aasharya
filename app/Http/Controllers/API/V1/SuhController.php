@@ -45,6 +45,18 @@ class SuhController extends BaseController
         //
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $suh = $this->suh->pluck('name', 'id');
+
+        return $this->sendResponse($suh, 'Suh list');
+    }
+
       /**
      * Display a listing of the resource.
      *
@@ -55,6 +67,22 @@ class SuhController extends BaseController
         $suh = DB::table('suhs')->get()->last()->id;
 
         return $this->sendResponse($suh, 'Last SUH Id');
+    }
+
+
+       /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function filterSuh($dis, $ulb)
+    {
+        $suh = DB::table('suhs')->where(array(
+            'district_id' => $dis,
+            'ulb_id' => $ulb))
+            ->pluck('name', 'id');
+
+        return $this->sendResponse($suh, 'Filtered SUH Id');
     }
 
     /**

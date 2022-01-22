@@ -47,7 +47,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-              <router-link to="#" class="nav-link">
+              <router-link to="/AddInmate" class="nav-link">
                 <i class="nav-icon fas fa-list-ol green"></i>
                 <p>
                   Add Inmates
@@ -56,9 +56,36 @@
             </li>
            
           <li class="nav-item">
-            <router-link to="#" class="nav-link">
+            <router-link to="/ListInmate" class="nav-link">
               <i class="fa fa-users nav-icon blue"></i>
               <p>List of Inmates</p>
+            </router-link>
+          </li>
+          </ul>
+      </li>
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-cog green"></i>
+          <p>
+            Reports
+            <i class="right fas fa-angle-left"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+              <router-link to="/SuhReport" class="nav-link">
+                <i class="nav-icon fas fa-list-ol green"></i>
+                <p>
+                  SUH Report
+                </p>
+              </router-link>
+            </li>
+           
+          <li class="nav-item">
+            <router-link to="/InmateReport" class="nav-link">
+              <i class="fa fa-users nav-icon blue"></i>
+              <p>Inmates Report</p>
             </router-link>
           </li>
           </ul>
