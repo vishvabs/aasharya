@@ -19,7 +19,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-20">
-                <table id="suhTable" class="table table-hover">
+                <table d="suhTablie" class="table table-hover">
                   <thead>
                     <tr>
                       <th>#</th>

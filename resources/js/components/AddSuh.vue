@@ -40,7 +40,7 @@
                             <div class="form-group">
                             <label>Id</label>
                             <input v-model="form.genid" type="text" name="genid"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('genid') }">
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('genid') }" disabled>
                             <has-error :form="form" field="genid"></has-error>
                                 </div>
                                 </div>
@@ -141,7 +141,7 @@
                     address: '',
                     username: '',
                     password: '',
-                    status: '',
+                    status: 0,
                     created_id: this.$userId,
                     updated_id: this.$userId,
                     suh_status: '',
@@ -275,6 +275,7 @@
                         title: data.data.message
                     });
                   this.$Progress.finish();
+                  this.$router.push({path:'/ListSuh'}); 
                   
 
                 } else {
@@ -307,7 +308,7 @@
                         title: data.data.message
                     });
                   this.$Progress.finish();
-                  
+                   this.$router.push({path:'/ListSuh'}); 
 
                 } else {
                   Toast.fire({

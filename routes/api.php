@@ -25,16 +25,24 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('ulb/list', 'UlbController@list');
     Route::get('suh/lastId', 'SuhController@lastId');
     Route::get('suh/list', 'SuhController@list');
+    Route::get('suh/editdata/{id}', 'SuhController@editdata');
     Route::get('inmate/lastId', 'InmateController@lastId');
     Route::post('suh/upload', 'SuhController@destroy');
     Route::get('suh/{dis}/{ulb}', 'Suhcontroller@filterSuh');
-    Route::get('getinmate/{id}', 'Inmatecontroller@filterbySuh');
+    Route::get('filtersuh/{dis}/{ulb}/{from}/{to}', 'SuhController@filterby');
+    Route::get('filterinmate/{suh}/{from}/{to}', 'InmateController@filterInmate');
+    Route::get('inmatefilter/{suh}', 'InmateController@filterInmatesuh');
+    Route::get('getAttendance/{id}', 'AttendanceController@filterAttendance');
+    Route::get('filterattendance/{id}/{from}/{to}', 'AttendanceController@filterReport');
+    
+    Route::get('getinmate/{id}', 'Inmatecontroller@filterbyId');
    
     
 
     Route::apiResources([
         'suh' => 'SuhController',
         'inmate' => 'InmateController',
+        'attendance' => 'AttendanceController',
         
     ]);
 });

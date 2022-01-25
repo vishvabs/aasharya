@@ -8,8 +8,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="user-id" content="{{ Auth::user()->id }}">
 
-  <title>{{ config('app.name', 'KAG') }}</title>
-  
+  <title>AASHARYA</title>
+  <link rel="shortcut icon" type="image/png" href="{{ asset('/images/logo.png') }}"/>
 
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
@@ -46,26 +46,26 @@
     <router-link to="/dashboard" class="brand-link">
       <img src="{{ asset('/images/logo.png') }}" alt="The Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
+      <span class="brand-text font-weight-light">AASHARYA</span>
     </router-link>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-        <router-link to="/profile">
-          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        
+          <div style="color: burlywood;" class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
-                <img src="{{ auth()->user()->photo }}" class="img-circle elevation-2" alt="User Image">
+                {{-- <img src="{{ auth()->user()->photo }}" class="img-circle elevation-2" alt="User Image"> --}}
               </div>
               <div class="info">
 
-                  {{ Auth::user()->name }}
+                  You are logged as {{ Auth::user()->user_id }}
                   <span class="d-block text-muted">
-                    {{ Ucfirst(Auth::user()->is_admin) }}
+                    {{-- {{ Ucfirst(Auth::user()->is_admin) }} --}}
                   </span>
               </div>
           </div>
-        </router-link>
+       
 
       <!-- Sidebar Menu -->
       @include('layouts.sidebar-menu')
@@ -112,7 +112,7 @@
       <b>Version</b> 3.0.0
     </div>
     {{-- Default to the left --}}
-    <strong>Copyright &copy; 2021 <a href="#">KAG Investments Pvt Ltd</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2021 <a href="#">AASHARYA</a>.</strong> All rights reserved.
   </footer>
 </div>
 {{-- ./wrapper --}}

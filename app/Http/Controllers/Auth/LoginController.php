@@ -43,5 +43,10 @@ class LoginController extends Controller
 {
     return 'user_id';
 }
+
+protected function authenticated(Request $request, $user)
+{
+    return redirect()->to($this->redirectPath());
+}
    
 }

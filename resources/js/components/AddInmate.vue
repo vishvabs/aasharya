@@ -53,7 +53,7 @@
                             <div class="form-group">
                             <label>Id</label>
                             <input v-model="form.genid" type="text" name="genid"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('genid') }">
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('genid') }" disabled>
                             <has-error :form="form" field="genid"></has-error>
                                 </div>
                                 </div>
@@ -449,7 +449,7 @@
                         title: data.data.message
                     });
                   this.$Progress.finish();
-                  
+                   this.$router.push({path:'/ListInmate'}); 
 
                 } else {
                   Toast.fire({
@@ -481,7 +481,7 @@
                         title: data.data.message
                     });
                   this.$Progress.finish();
-                  
+                   this.$router.push({path:'/ListInmate'}); 
 
                 } else {
                   Toast.fire({

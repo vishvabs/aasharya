@@ -17,8 +17,9 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
+          @can('isAdmin')
         <li class="nav-item">
-            <router-link to="/AddSuh" class="nav-link">
+            <router-link to="/AddSuh"  class="nav-link">
               <i class="nav-icon fas fa-list-ol green"></i>
               <p>
                 Add SUH
@@ -33,13 +34,23 @@
               </p>
             </router-link>
           </li>
-         
+          @endcan
+          @can('isUser')
+          <li class="nav-item">
+            <router-link to="/EditSuh"  class="nav-link">
+              <i class="nav-icon fas fa-list-ol green"></i>
+              <p>
+                Edit Suh Info
+              </p>
+            </router-link>
+          </li>
+         @endcan
         </ul>
       </li>
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-cog green"></i>
+          <i class="nav-icon fas fa-user"></i>
           <p>
             Inmates
             <i class="right fas fa-angle-left"></i>
@@ -57,13 +68,40 @@
            
           <li class="nav-item">
             <router-link to="/ListInmate" class="nav-link">
-              <i class="fa fa-users nav-icon blue"></i>
+              <i class="fas fa-list-ol nav-icon blue"></i>
               <p>List of Inmates</p>
             </router-link>
           </li>
           </ul>
       </li>
-
+      @can('isUser')
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-cog green"></i>
+          <p>
+            Attendance
+            <i class="right fas fa-angle-left"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+              <router-link to="/AddAttendance" class="nav-link">
+                <i class="nav-icon fas fa-list-ol green"></i>
+                <p>
+                  Add Attendance
+                </p>
+              </router-link>
+            </li>
+           
+          <li class="nav-item">
+            <router-link to="/ListAttendance" class="nav-link">
+              <i class="fa fa-users nav-icon blue"></i>
+              <p>List of Attendance</p>
+            </router-link>
+          </li>
+          </ul>
+      </li>
+@endcan
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-cog green"></i>
@@ -73,6 +111,7 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
+          @can('isAdmin')
           <li class="nav-item">
               <router-link to="/SuhReport" class="nav-link">
                 <i class="nav-icon fas fa-list-ol green"></i>
@@ -81,13 +120,21 @@
                 </p>
               </router-link>
             </li>
-           
+           @endcan
           <li class="nav-item">
             <router-link to="/InmateReport" class="nav-link">
-              <i class="fa fa-users nav-icon blue"></i>
+              <i class="fas fa-list-ol nav-icon blue"></i>
               <p>Inmates Report</p>
             </router-link>
           </li>
+          @can('isUser')
+          <li class="nav-item">
+            <router-link to="/AttendanceReport" class="nav-link">
+              <i class="fa fa-users nav-icon blue"></i>
+              <p>Attendance Report</p>
+            </router-link>
+          </li>
+          @endcan
           </ul>
       </li>
 

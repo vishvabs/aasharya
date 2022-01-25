@@ -29,7 +29,7 @@ class CreateSuhsTable extends Migration
             $table->integer('suh_status')->nullable();
             $table->string('capacity')->nullable();
             $table->string('geo')->nullable();
-            $table->boolean('is_cctv')->nullable();
+            $table->integer('is_cctv')->nullable();
             $table->boolean('is_water')->nullable();
             $table->boolean('is_iso')->nullable();
             $table->string('hygiene')->nullable();

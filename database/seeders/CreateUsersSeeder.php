@@ -21,13 +21,7 @@ class CreateUsersSeeder extends Seeder
                 'createdby_id'=>'1',
                'password'=> bcrypt('123456'),
             ],
-            [
-               'user_id'=>'User',
-               'createdby_id'=>'1',
-                'status'=>'1',
-                'is_admin'=>'0',
-               'password'=> bcrypt('123456'),
-            ],
+          
         ];
   
         foreach ($user as $key => $value) {

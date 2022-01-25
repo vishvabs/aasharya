@@ -57,6 +57,49 @@ class InmateController extends BaseController
         return $this->sendResponse($inmate, 'Last Inmate Id');
     }
 
+          /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function filterInmate($suh, $from, $to)
+
+    {
+        if($suh == 0 && $from == 0 && $to == 0){
+            $inmate = $this->inmate->latest()->with('suh', 'district','ulb')->get();
+        }
+        
+        else if($suh != 0 && $from == 0 && $to ==0) {
+            $inmate = $this->inmate->latest()->with('suh', 'district','ulb')->where(array(
+                'suh_id' => $suh
+            ))->get();
+        }
+
+        else if($suh != 0 && $from != 0 && $to !=0) {
+            $inmate = $this->inmate->latest()->with('suh', 'district','ulb')->where(array(
+                'suh_id' => $suh
+            ))->whereBetween('created_at', [$from, $to])->get();
+        }
+        else if($suh == 0 && $from != 0 && $to !=0) {
+            $inmate = $this->inmate->latest()->with('suh', 'district','ulb')->whereBetween('created_at', [$from, $to])->get();
+        }
+      
+        
+        
+        // $arr = array();
+        //  if($suh === 0){
+        //     $inmate = $this->inmate->latest()->with('suh', 'district','ulb');
+        //  }
+        
+         
+        // $suh = DB::table('suhs')->where(array(
+        //     'district_id' => $dis,
+        //     'ulb_id' => $ulb))
+        //     ->pluck('name', 'id');
+
+        return $this->sendResponse($inmate, 'Filtered Inmate report');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -100,6 +143,24 @@ class InmateController extends BaseController
         return $this->sendResponse($inmate, 'Inmate Created Successfully');
     }
 
+
+
+          /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function filterInmatesuh($suh)
+    {
+        $inmate = DB::table('inmates')->where(array(
+            'suh_id' => $suh))
+            ->pluck('name', 'id');
+
+        return $this->sendResponse($inmate, 'Filtered Inmate Id');
+    }
+
+
+
     /**
      * Display the specified resource.
      *
@@ -129,6 +190,20 @@ class InmateController extends BaseController
         $inmate = $this->inmate->latest()->with('suh', 'district','ulb')->where('suh_id', $suhid)->get();
 
         return $this->sendResponse($inmate, 'Inmate Details of Suh');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filterbyId($id)
+    {
+        $suhid = DB::table('suhs')->where('user_id', $id)->first()->id;
+        $inmate = $this->inmate->latest()->with('suh', 'district','ulb')->where('suh_id', $suhid)->get();
+
+        return $this->sendResponse($inmate, 'Inmate Details');
     }
 
     /**
@@ -167,7 +242,7 @@ class InmateController extends BaseController
      */
     public function destroy($id)
     {
-
+            
         $inmate = $this->inmate->findOrFail($id);
         
        

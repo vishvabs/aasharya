@@ -138,6 +138,34 @@ class SuhController extends BaseController
         return $this->sendResponse($suh, 'SUH Created Successfully');
     }
 
+
+    public function filterby($dis,$ulb, $from, $to)
+
+    {
+        if($dis == 0 && $ulb == 0 &&$from == 0 && $to == 0){
+            $suh = $this->suh->with('district','ulb')->get();
+        }
+        
+        else if($dis != 0 && $ulb != 0 && $from == 0 && $to ==0) {
+            $suh = $this->suh->with('district','ulb')->where(array(
+                'district_id' => $dis,
+                'ulb_id' => $ulb,
+            ))->get();
+        }
+
+        else if($dis != 0 && $ulb != 0 && $from != 0 && $to != 0) {
+            $suh = $this->suh->with('district','ulb')->where(array(
+                'district_id' => $dis,
+                'ulb_id' => $ulb
+            ))->whereBetween('created_at', [$from, $to])->get();
+        }
+        else if($dis == 0 && $ulb == 0 && $from != 0 && $to !=0) {
+            $suh = $this->suh->with('district','ulb')->whereBetween('created_at', [$from, $to])->get();
+        }
+      
+        return $this->sendResponse($suh, 'Filtered Suh report');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -160,6 +188,15 @@ class SuhController extends BaseController
     public function edit($id)
     {
         //
+    }
+
+    public function editData($id)
+    {
+
+        $suhid = DB::table('suhs')->where('user_id', $id)->first()->id;
+        $suh = $this->suh->with(['user', 'ulb','district'])->findOrFail($suhid);
+
+        return $this->sendResponse($suh, 'Suh Details');
     }
 
     /**
